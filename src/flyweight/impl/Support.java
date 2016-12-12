@@ -7,7 +7,8 @@ import flyweight.Enemy;
  */
 public class Support extends Enemy {
 
-    public Support() {
+    public Support(int id) {
+        super(id);
         health = 100;
         armor = 150;
         damage = 40;
@@ -15,6 +16,6 @@ public class Support extends Enemy {
 
     @Override
     public void printEnemy() {
-        System.out.println(String.format("Class: %s\nHealth: %s\nArmor: %s\nDamage: %s\n", Support.class.getSimpleName(), health, armor, damage));
+        System.out.println(String.format("Class: %s\nHealth: %s\nArmor: %s\nDamage: %s\nID: %s\n", Support.class.getSimpleName(), health, armor, damage, id));
     }
 }

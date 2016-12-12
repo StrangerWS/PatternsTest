@@ -10,27 +10,45 @@ import java.util.HashMap;
  * Created by User on 09.12.2016.
  */
 public class EnemyFactory {
-    private HashMap<String, Enemy> enemies = new HashMap<>();
+    private HashMap<Integer, Soldier> soldiers = new HashMap<>();
+    private HashMap<Integer, Support> supports = new HashMap<>();
+    private HashMap<Integer, Sniper> snipers = new HashMap<>();
 
-    public Enemy getEnemy(String enemyClass) {
-        Enemy enemy = enemies.get(enemyClass);
-        if (enemy == null) {
-            switch (enemyClass) {
-                case "soldier": {
-                    enemy = new Soldier();
-                    break;
+    public Enemy getEnemy(String enemyClass, int id) {
+        Enemy enemy = null;
+        switch (enemyClass) {
+            case "soldier": {
+                Soldier soldier = soldiers.get(id);
+                if (soldier == null) {
+                    soldier = new Soldier(id);
+                    System.out.println("Creating new soldier\n");
+                    soldiers.put(id, soldier);
                 }
-                case "support": {
-                    enemy = new Support();
-                    break;
-                }
-                case "sniper": {
-                    enemy = new Sniper();
-                    break;
-                }
+                enemy = soldier;
+                break;
             }
-            enemies.put(enemyClass, enemy);
+            case "support": {
+                Support support = supports.get(id);
+                if (support == null) {
+                    support = new Support(id);
+                    System.out.println("Creating new support\n");
+                    supports.put(id, support);
+                }
+                enemy = support;
+                break;
+            }
+            case "sniper": {
+                Sniper sniper = snipers.get(id);
+                if (sniper == null) {
+                    sniper = new Sniper(id);
+                    System.out.println("Creating new sniper\n");
+                    snipers.put(id, sniper);
+                }
+                enemy = sniper;
+                break;
+            }
         }
+
         return enemy;
     }
 }
