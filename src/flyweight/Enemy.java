@@ -5,18 +5,20 @@ package flyweight;
  */
 public abstract class Enemy {
 
-    protected int id;
+    protected int x;
+    protected int y;
     protected double health;
     protected double armor;
     protected double damage;
 
-    public Enemy(int id) {
-        this.id = id;
+    public Enemy(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public abstract void printEnemy();
 
-    public void dealDamage(double value) {
+    public void takeDamage(double value) {
         if (health < value && armor < value / 1.67) {
             health = 0;
             armor = 0;

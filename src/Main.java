@@ -1,5 +1,6 @@
 import flyweight.Enemy;
 import flyweight.EnemyFactory;
+import flyweight.Point2D;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -11,25 +12,29 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         EnemyFactory factory = new EnemyFactory();
-        ArrayList<Pair<String, Integer>> enemySquad = new ArrayList<>();
+        ArrayList<Pair<String, Point2D>> enemySquad = new ArrayList<>();
 
-        enemySquad.add(new Pair<String, Integer>("soldier", 1));
-        enemySquad.add(new Pair<String, Integer>("soldier", 2));
-        enemySquad.add(new Pair<String, Integer>("support", 1));
-        enemySquad.add(new Pair<String, Integer>("support", 2));
-        enemySquad.add(new Pair<String, Integer>("soldier", 1));
-        enemySquad.add(new Pair<String, Integer>("sniper", 1));
+        enemySquad.add(new Pair<String, Point2D>("soldier", new Point2D(1, 2)));
+        enemySquad.add(new Pair<String, Point2D>("soldier", new Point2D(2, 3)));
+        enemySquad.add(new Pair<String, Point2D>("support", new Point2D(-3, 3)));
+        enemySquad.add(new Pair<String, Point2D>("support", new Point2D(1, 3)));
+        enemySquad.add(new Pair<String, Point2D>("soldier", new Point2D(1, 2)));
+        enemySquad.add(new Pair<String, Point2D>("sniper", new Point2D(-3, 4)));
 
-        for (Pair value : enemySquad) {
-            Enemy enemy = factory.getEnemy((String) value.getKey(), (int) value.getValue());
+        for (Pair<String, Point2D> value : enemySquad) {
+            Enemy enemy = factory.getEnemy(value.getKey(), value.getValue().getX(), value.getValue().getY());
             enemy.printEnemy();
         }
 
-        factory.getEnemy(enemySquad.get(4).getKey(), enemySquad.get(4).getValue()).printEnemy();
-        factory.getEnemy(enemySquad.get(4).getKey(), enemySquad.get(4).getValue()).dealDamage(50);
-        factory.getEnemy(enemySquad.get(4).getKey(), enemySquad.get(4).getValue()).printEnemy();
-        factory.getEnemy(enemySquad.get(1).getKey(), enemySquad.get(1).getValue()).printEnemy();
-        factory.getEnemy(enemySquad.get(0).getKey(), enemySquad.get(0).getValue()).printEnemy();
+        new Spell().fireballStrike(1, 1, factory);
+        System.out.println("Fireball!!!\n");
+
+        for (Pair<String, Point2D> value : enemySquad) {
+            Enemy enemy = factory.getEnemy(value.getKey(), value.getValue().getX(), value.getValue().getY());
+            enemy.printEnemy();
+        }
+
+
 
     }
 }
